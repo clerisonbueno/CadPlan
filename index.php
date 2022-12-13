@@ -10,10 +10,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
-    
-
-    
-
 <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -76,16 +72,16 @@
   <body class="text-center">
     
 <main class="form-signin w-100 m-auto">
-  <form>
+  <form method="post">
     <img class="mb-4" src="assets/brand/logo_chami.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 fw-normal">Informações de acesso:</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
       <label for="floatingInput">Insira seu email</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Insira sua senha</label>
     </div>
 
@@ -94,7 +90,44 @@
         <input type="checkbox" value="remember-me"> Lembrar-me
       </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+
+    <?php 
+
+        if (isset($_POST['entrar'])) {
+
+            $email = $_POST['email'];
+            $senha = $_POST['senha'];
+
+           // ########## RECUPERAÇÃO DE DADOS NO BANCO #############
+            $pdo = new PDO('mysql:host=localhost;dbname=cadplanchaminade','root','');
+
+            $sql = $pdo->prepare("SELECT * FROM `usuarios` WHERE email=? and senha=?");
+            $sql->execute(array($email, $senha));
+            $info = $sql->fetchAll(PDO::FETCH_ASSOC);
+    
+            if (!empty($info)) {
+            
+                // #### Inicializa uma sessão e carrega os dados persistentes #####
+                session_start();
+                $_SESSION['nome'] = $info[0]['nome'];
+                $_SESSION['id'] = $info[0]['id'];
+                $_SESSION['email'] = $info[0]['email'];
+
+                echo "<pre>";
+                echo print_r($info);
+                echo "</pre>";
+                echo "<script>window.location.href = 'produtos.php'</script>";
+            
+              } else {
+                    echo "<br />";
+                    echo "<div class='container alert alert-danger' role='alert'>";
+                    echo "Usuário ou senha não encontrados.";
+                    echo "</div>";
+              } 
+            }
+       ?>
+
+    <button class="w-100 btn btn-lg btn-primary" name="entrar" type="submit">Entrar</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
   </form>
 </main>
