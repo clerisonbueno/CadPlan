@@ -1,3 +1,13 @@
+<?php 
+
+  if (isset($_POST['novocad'])) {
+
+      echo "<script>window.location.href = 'cadusu.php'</script>";
+
+  }
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -6,12 +16,12 @@
     <meta name="description" content="">
     <meta name="author" content="Clerison Bueno">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Cadastro de Planejamento</title>
+    <title>Login - Cadastro de Planejamento</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <!--
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -65,7 +75,8 @@
       }
     </style>
 
-    
+    -->
+
     <!-- Custom styles for this template -->
     <link href="assets/dist/css/signin.css" rel="stylesheet">
   </head>
@@ -77,11 +88,11 @@
     <h1 class="h3 mb-3 fw-normal">Informações de acesso:</h1>
 
     <div class="form-floating">
-      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" required="required" data-validation-required-message="Insira seu e-mail cadastrado.">
       <label for="floatingInput">Insira seu email</label>
     </div>
     <div class="form-floating">
-      <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" name="senha" class="form-control" id="floatingPassword" placeholder="Password" required="required" data-validation-required-message="Insira seu e-mail cadastrado.">
       <label for="floatingPassword">Insira sua senha</label>
     </div>
 
@@ -125,10 +136,12 @@
                     echo "</div>";
               } 
             }
+
        ?>
 
     <button class="w-100 btn btn-lg btn-primary" name="entrar" type="submit">Entrar</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+    <p></br><button onclick="window.location.href='cadusu.php'" class="w-100 btn btn-lg btn-secondary" name="novocad" type="submit">Cadastre-se</button></p>
+    <p class="mt-5 mb-3 text-muted">&copy; Clerison Bueno - 2023</p>
   </form>
 </main>
 
