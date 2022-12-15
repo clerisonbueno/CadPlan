@@ -107,7 +107,7 @@
         if (isset($_POST['entrar'])) {
 
             $email = $_POST['email'];
-            $senha = $_POST['senha'];
+            $senha = sha1($_POST['senha']);
 
            // ########## RECUPERAÇÃO DE DADOS NO BANCO #############
             $pdo = new PDO('mysql:host=localhost;dbname=cadplanchaminade','root','');

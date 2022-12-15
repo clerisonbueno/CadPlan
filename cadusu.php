@@ -47,14 +47,31 @@
 		  			
 		  				if ($_POST['senha'] == $_POST['confirma-senha']) {
 
-		  						// ajustar para cadastrar os dados dos professores
+		  						$nome = $_POST['nome'];
+		  						$sobrenome = $_POST['sobrenome'];
+		  						$email = $_POST['email'];
+		  						$senha = sha1($_POST['senha']);
+
+		  						// ########## GRAVAÇÃO NO BANCO DE DADOS #############
+			                    $pdo = new PDO('mysql:host=localhost;dbname=cadplanchaminade','root','');
+
+			                    $sql = $pdo->prepare("INSERT INTO `usuarios` VALUES (null,?,?,?,?)");
+			                    $sql->execute(array($nome, $sobrenome, $email, $senha));
+
+			                    echo "<div class='alert alert-success text-uppercase' role='alert'>";
+			                            echo "Cadastro realizado com sucesso";
+			                    echo "</div>";
+
+			                    echo "<script> alert('Cadastro realizado com sucesso!')</script>";
+			                    echo "<script>window.location.href = 'index.php'</script>";
+
 
 		  				} else  {
 		  					
-		  						//echo "<br />";
-                  echo "<div class='container alert alert-danger' role='alert'>";
-                  echo "Senhas não coincidem!!";
-                  echo "</div>";
+		  					  //echo "<br />";
+			                  echo "<div class='container alert alert-danger' role='alert'>";
+			                  echo "Senhas não coincidem!!";
+			                  echo "</div>";
 
 
 		  				}
